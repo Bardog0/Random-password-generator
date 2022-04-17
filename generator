@@ -1,0 +1,111 @@
+# This program will generate random password for the user.
+# The user will choose the length and the type of charts in the password.
+
+# Color chart:
+
+class bc:
+    H = '\033[95m'
+    B = '\033[94m'
+    CY = '\033[96m'
+    G = '\033[92m'
+    Y = '\033[93m'
+    R = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+
+# How to write the color code: print(bc.UNDERLINE + "TEXT" + bc.ENDC)
+
+
+# Will print the first line of the program with text and background color
+
+# Import string librery
+import string
+
+# Import randint and shuffle librery
+from random import randint
+from random import shuffle
+import random
+
+header = bc.Y + "Random Password Generator:\n\n\n" + bc.ENDC
+print(header)
+
+print(bc.Y + "You will choose the length and the type of the\n characters you want to have in your random password\n" + bc.ENDC)
+print(bc.CY + "How long would you like your password to be?\n" + bc.ENDC)
+
+# The user will type the length he wants the password will be.
+# The while loop makes sure that that password will be shorter than 101 characters.
+pass_length = int(input(bc.CY + " Type the number of characters you\n want in your password(1-100):\n" + bc.ENDC))
+while pass_length > 100:
+    print(bc.R + "please choose a number between 1 and 100\n" + bc.ENDC)
+    pass_length = int(input(bc.CY + " Type the number of characters you\n want in your password(1-100):\n" + bc.ENDC))
+
+else:
+    print(bc.Y + "Password length set to " + str(pass_length) + " characters\n" + bc.ENDC)
+
+
+# Create a dictionary for the selection of the character types
+
+serial = range(1,6)
+combinations = ['Numbers only', 'Numbers & letters (lowercase)', 'Numbers & letters (uppercase)', 'Numbers & letters (lowercase & uppercase)', 'Numbers, letters & symbols  (lowercase & uppercase & symbols)']
+zip_dict = zip(serial, combinations)
+selection_dict = dict(zip_dict)
+print(bc.Y + "Choose the type of the characters you want to generate in your password\n" + bc.ENDC)
+
+# print out the dictionary
+for a,b in zip(serial, combinations):
+    print(a,b)
+'\n\n'
+
+
+# creat a function that will take the selected pass combination and print out the password.
+selected_combination = int(input("My selection is:\n"))
+
+if selected_combination == 1:
+    def rand_num_pass(N):
+        min = pow(10, N - 1)
+        max = pow(10, N) - 1
+        return random.randint(min, max)
+    print(bc.BOLD + "Your password is:\n" + bc.ENDC)
+    print(rand_num_pass(pass_length))
+else:
+    pass
+
+if selected_combination == 2:
+    def nums_lower(length = pass_length, letter = string.ascii_lowercase + string.digits):
+        return ''.join(random.choice(letter) for _ in range(length))
+    print(bc.BOLD + "Your password is:\n" + bc.ENDC)
+    print(nums_lower(pass_length))
+else:
+    pass
+
+if selected_combination == 3:
+    def nums_upper(length = pass_length, letter = string.ascii_uppercase + string.digits):
+        return ''.join(random.choice(letter) for _ in range(length))
+
+
+    print(bc.BOLD + "Your password is:\n" + bc.ENDC)
+    print(nums_upper(pass_length))
+else:
+    pass
+
+if selected_combination == 4:
+    def nums_lower_upper(length = pass_length, letter = string.ascii_uppercase + string.ascii_lowercase + string.digits):
+        return ''.join(random.choice(letter) for _ in range(length))
+
+
+    print(bc.BOLD + "Your password is:\n" + bc.ENDC)
+    print(nums_lower_upper(pass_length))
+else:
+    pass
+
+if selected_combination == 5:
+    def nums_lower_upper_symbols(length=pass_length, letter=string.ascii_uppercase + string.punctuation + string.ascii_lowercase + string.digits):
+        return ''.join(random.choice(letter) for _ in range(length))
+
+
+    print(bc.BOLD + "Your password is:\n" + bc.ENDC)
+    print(nums_lower_upper_symbols(pass_length))
+else:
+    pass
+
